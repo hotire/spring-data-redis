@@ -26,3 +26,11 @@ redis-cli shutdown
 ```
 
 redis shutdown
+
+
+
+
+### Embedded Redis
+
+https://github.com/ozimov/embedded-redis
+
