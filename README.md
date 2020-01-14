@@ -2,6 +2,7 @@
 
 study
 
+![redis](/doc/redis.jpg)
 
 
 ## Messaging with Redis
