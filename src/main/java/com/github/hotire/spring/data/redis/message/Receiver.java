@@ -12,7 +12,7 @@ public class Receiver {
   private final CountDownLatch latch;
 
   public void receiveMessage(final String message) {
-    log.info("Received <" + message + ">");
+    log.info("Received < {} > ", message);
     latch.countDown();
   }
 }
