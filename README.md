@@ -2,7 +2,7 @@
 
 study
 
-![redis](/doc/redis.jpg)
+![redis](/doc/redis.png)
 
 
 ## Messaging with Redis
