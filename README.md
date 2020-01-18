@@ -32,5 +32,7 @@ redis shutdown
 
 ### Embedded Redis
 
+임베디드 Redis로 로컬 환경에서 테스트하기 위해 사용함 
+
 https://github.com/ozimov/embedded-redis
 
