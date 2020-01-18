@@ -18,7 +18,7 @@ class PointRedisRepositoryTest {
   @Test
   void save_find() {
     //given
-    final String id = "jojoldu";
+    final String id = "hotire";
     final LocalDateTime refreshTime = LocalDateTime.of(2018, 5, 26, 0, 0);
 
 
