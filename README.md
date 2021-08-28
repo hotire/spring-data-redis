@@ -32,6 +32,13 @@ redis shutdown
 
 https://github.com/lettuce-io/lettuce-core
 
+### AbstractRedisClient#shutdown() never ends when Redis is unstable
+
+- https://github.com/lettuce-io/lettuce-core/issues/1768
+
+- 6.1.3 bug fix 
+
+
 
 
 ### Embedded Redis
