@@ -28,6 +28,10 @@ redis-cli shutdown
 redis shutdown
 
 
+## Lettuce
+
+https://github.com/lettuce-io/lettuce-core
+
 
 
 ### Embedded Redis
