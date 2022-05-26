@@ -56,6 +56,13 @@ https://github.com/ozimov/embedded-redis
   - UNKNOWN_NODE : 알수 없는 node
   - UNCOVERED_SLOT : 
 
+### 메모리 운영기법
+
+- https://ssoco.tistory.com/16
+
+### interview 
+
+- https://intrepidgeeks.com/tutorial/summary-and-explanation-of-common-interview-questions-of-redis
 
 ## Pub / Sub
 
