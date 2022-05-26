@@ -56,3 +56,10 @@ https://github.com/ozimov/embedded-redis
   - UNKNOWN_NODE : 알수 없는 node
   - UNCOVERED_SLOT : 
 
+
+## Pub / Sub
+
+- https://redis.io/topics/pubsub
+- https://www.baeldung.com/spring-data-redis-pub-sub
+- https://brunch.co.kr/@springboot/374
+- https://github.com/eugenp/tutorials/blob/master/persistence-modules/spring-data-redis/src/main/java/com/baeldung/spring/data/redis/config/RedisConfig.java
