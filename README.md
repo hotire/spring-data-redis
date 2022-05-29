@@ -56,9 +56,14 @@ https://github.com/ozimov/embedded-redis
   - UNKNOWN_NODE : 알수 없는 node
   - UNCOVERED_SLOT : 
 
-### 메모리 운영기법
+## 메모리 운영기법
 
 - https://ssoco.tistory.com/16
+
+### Maxmemory
+
+메모리 사용량 제한을 위해 사용하는 maxmemory는 32bit/64bit 환경에 따라 초기값이 다르게 설정된다. 32bit 환경에서는 초기값이 3GB로 설정되어 최대 3GB 메모리만 사용 가능한 반면에, 64bit 환경에서는 초기값이 0으로 설정된다. 즉, 64bit 환경에서는 메모리 사용량 제한이 없으며 운영체제의 가상메모리(스왑)까지 사용한다.(이 때 시스템의 메모리 한계를 인식하지 못해 더 많은 메모리를 요구하여 문제가 발생할 수 있기 때문에 따로 설정을 해주어야 한다.)
+
 
 ### interview 
 
