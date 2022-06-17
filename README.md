@@ -69,8 +69,22 @@ https://github.com/ozimov/embedded-redis
 max-memory만큼 메모리를 사용하게 되면, 메모리 정책에 따라 과거에 만들어진 키들이 삭제된다.
 
 1. noeviction
-
 : 캐시를 지우지 않는 정책이다. 메모리가 maxmemory 이상을 사용하게 되면 error를 발생시킨다.
+
+2. allkey 
+: 각 정책에 따라 모든 키를 대상으로 정리한다.
+    - allkeys-lru : LRU 알고리즘 기반으로 키를 삭제한다.
+    - allkey-random : 랜덤하게 키를 삭제한다.
+    - allkeys-lfu : LFU 알고리즘 기반으로 키를 삭제한다.
+3. volatile 
+: 각 정책에 따라 EXPIRE SET에 있는 키들을 대상으로 정리한다.
+    - volatile-lru : LRU 알고리즘 기반으로 키를 삭제한다.
+    - volatile-random : 랜덤하게 키를 삭제한다.
+    - volatile-ttl : TTL이 짧은 순으로 삭제한다.
+    - volatile-lfu : LFU 알고리즘 기반으로 키를 삭제한다.
+
+    
+    
 
 ### interview 
 
