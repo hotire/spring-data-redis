@@ -58,7 +58,7 @@ https://github.com/ozimov/embedded-redis
 
 ## 메모리 운영기법
 
-- https://ssoco.tistory.com/16
+- https://ssoco.tistory.com/16EventListnerMethodProccsor를
 
 ### Maxmemory
 
@@ -83,6 +83,22 @@ max-memory만큼 메모리를 사용하게 되면, 메모리 정책에 따라 �
     - volatile-ttl : TTL이 짧은 순으로 삭제한다.
     - volatile-lfu : LFU 알고리즘 기반으로 키를 삭제한다.
 
+LRU : 가장 오랫동안 참조하지 않는 것
+LFU : 참조 횟수가 가장 적은 것    
+    
+
+## Redis Cluster    
+ 
+Redis Cluster는 여러 Redis 서버에 데이터를 자동으로 sharding 해주는 기술이다. 
+
+이전시간에 배운 Replication 구성을 한다면 Cluster 운영중에 노드중 일부가 장애를 겪고 있더라도 작업을 계속할 수 있게 해준다. (별도의 Replication 구성이 필요한 것은 아니다.)
+
+모든 Redis Cluster의 노드들은 자기의 기본 포트 (ex 6379) 와 기본포트 + 10000 (ex 16379) 같은 두개의 포트를 사용한다. 여기에서 16379와 같은 포트는 레디스 클러스터 버스로 사용된다. 이 레디스 클러스터 버스는 장애 감지, 구성 업데이트, failover 승인 등에 사용된다. 따라서 반드시 두개의 포트는 통신을 보장해주어야한다.
+
+
+
+
+  
     
     
 
