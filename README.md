@@ -112,6 +112,11 @@ CRC 16에 대한 자세한 정보는 http://blog.daum.net/trts1004/12108957에�
 - Node B contains hash slots from 5501 to 11000.
 - Node C contains hash slots from 11001 to 16383.  
   
+클러스터가 커지더라도 16384 개수를 넘어갈순없다.
+
+- slot range 마이그레이션은 자동으로 되는것이 아니라 수동으로 해야한다.  
+
+
     
 
 ### interview 
