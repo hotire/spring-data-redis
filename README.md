@@ -117,6 +117,17 @@ CRC 16에 대한 자세한 정보는 http://blog.daum.net/trts1004/12108957에�
 - slot range 마이그레이션은 자동으로 되는것이 아니라 수동으로 해야한다.  
 
 
+## Operation
+
+### ZSset
+
+정렬이 가능한 자료구조로 score를 기준으로 정렬한다.
+
+- ZADD : 추가 
+- ZRANGE, ZREVRANGE : 조회, 역조회
+
+
+
     
 
 ### interview 
