@@ -3,9 +3,7 @@ package com.github.hotire.spring.data.redis.core;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Set;
-
 import javax.annotation.Resource;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.ZSetOperations;
@@ -29,6 +27,19 @@ class ZSetOperationsCoreTest {
 
         // then
         assertThat(set).contains("AAA");
+    }
+
+    @Test
+    void addDuplicatedValue() {
+        // given
+        final String key = "key";
+        zSetOperations.add(key, "AAA", System.currentTimeMillis());
+
+        // when
+        final Boolean result = zSetOperations.add(key, "AAA", System.currentTimeMillis());
+
+        // then
+        assertThat(result).isFalse();
     }
 
 }

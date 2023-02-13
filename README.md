@@ -4,6 +4,7 @@ study
 
 ![redis](/doc/redis_.png)
 
+- https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/
 
 ## Messaging with Redis
 
