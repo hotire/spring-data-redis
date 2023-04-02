@@ -1,14 +1,14 @@
 package com.github.hotire.spring.data.redis.pubsub;
 
+import com.github.hotire.spring.data.redis.RedisTemplateFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
-
-import com.github.hotire.spring.data.redis.RedisTemplateFactory;
 
 @Configuration
 public class PubSubConfig {
@@ -29,11 +29,16 @@ public class PubSubConfig {
     }
 
     @Bean
+    public MessageListener messageListenerBean() {
+        return new RedisMessageSubscriber();
+    }
+
+    @Bean
     public RedisMessageListenerContainer redisContainer(RedisConnectionFactory connectionFactory) {
         RedisMessageListenerContainer container
                 = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.addMessageListener(messageListener(), topic());
+        container.addMessageListener(messageListenerBean(), topic());
         return container;
     }
 
