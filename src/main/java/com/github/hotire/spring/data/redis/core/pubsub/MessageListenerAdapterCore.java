@@ -7,4 +7,11 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
  */
 public class MessageListenerAdapterCore {
 
+    /**
+     * @see MessageListenerAdapter#afterPropertiesSet()
+     */
+    public void afterPropertiesSet() {
+
+    }
+
 }
