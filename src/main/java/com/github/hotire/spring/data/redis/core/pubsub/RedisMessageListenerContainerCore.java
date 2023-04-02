@@ -12,8 +12,14 @@ import org.springframework.util.ClassUtils;
  */
 public class RedisMessageListenerContainerCore {
 
+    /**
+     * @see RedisMessageListenerContainer#DEFAULT_THREAD_NAME_PREFIX
+     */
     public static final String DEFAULT_THREAD_NAME_PREFIX = ClassUtils.getShortName(RedisMessageListenerContainer.class);
 
+    /**
+     * @see RedisMessageListenerContainer#beanName
+     */
     private @Nullable String beanName;
 
     /**
