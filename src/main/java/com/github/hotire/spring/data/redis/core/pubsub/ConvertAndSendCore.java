@@ -8,7 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class ConvertAndSendCore {
 
     /**
-     * @see RedisTemplate#convertAndSend(String, Object) 
+     * @see RedisTemplate#convertAndSend(String, Object)
      */
     public void convertAndSend(String channel, Object message) {
 
