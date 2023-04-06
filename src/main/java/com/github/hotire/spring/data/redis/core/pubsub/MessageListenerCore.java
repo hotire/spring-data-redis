@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
 public class MessageListenerCore {
 
     /**
-     * @see MessageListener#onMessage(Message, byte[]) 
+     * @see MessageListener#onMessage(Message, byte[])
      */
     void onMessage(Message message, @Nullable byte[] pattern) {
         
