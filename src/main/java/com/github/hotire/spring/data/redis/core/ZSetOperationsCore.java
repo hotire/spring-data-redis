@@ -1,14 +1,12 @@
 package com.github.hotire.spring.data.redis.core;
 
 import javax.annotation.Resource;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
- * @see org.springframework.data.redis.core;.ZSetOperations
+ * @see org.springframework.data.redis.core.ZSetOperations
  */
 @Slf4j
 @Component
