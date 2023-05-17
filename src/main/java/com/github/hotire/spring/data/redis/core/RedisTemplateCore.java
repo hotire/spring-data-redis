@@ -1,5 +1,6 @@
 package com.github.hotire.spring.data.redis.core;
 
+import java.util.concurrent.TimeUnit;
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**
@@ -7,4 +8,10 @@ import org.springframework.data.redis.core.RedisTemplate;
  */
 public class RedisTemplateCore {
 
+    /**
+     * @see RedisTemplate#expire(Object, long, TimeUnit)
+     */
+    public <K> Boolean expire(K key, final long timeout, final TimeUnit unit) {
+        return true;
+    }
 }
