@@ -143,7 +143,10 @@ CRC 16에 대한 자세한 정보는 http://blog.daum.net/trts1004/12108957에�
 - https://github.com/eugenp/tutorials/blob/master/persistence-modules/spring-data-redis/src/main/java/com/baeldung/spring/data/redis/config/RedisConfig.java
 
 
-## 대기열
+## 대기열 
 
 ### 지마켓
 - https://dev.gmarket.com/46
+
+### 우형
+- https://www.youtube.com/watch?v=MTSn93rNPPE&t=710s
