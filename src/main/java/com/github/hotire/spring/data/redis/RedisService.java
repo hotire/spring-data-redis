@@ -17,7 +17,6 @@ public interface RedisService {
     <T> void save(final String key, final T value, final Duration timeout, final Class<T> type);
     <T> void addToSet(final String key, final T value, final Duration timeout, final Class<T> type);
 
-
     @Service
     @RequiredArgsConstructor
     class Default implements RedisService {
@@ -27,34 +26,23 @@ public interface RedisService {
 
         @Override
         public <T> void save(final String key, final T value, final Duration timeout, final Class<T> type) {
-            if (String.class.equals(type)) {
-                final String casted = (String) value;
-                redisTemplate.opsForValue().set(key, casted, timeout);
-                return;
-            }
-
-            try {
-                final String json = objectMapper.writeValueAsString(value);
-                redisTemplate.opsForValue().set(key, json, timeout);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e.getMessage(), e);
-            }
+            final String valueString = toString(value, type);
+            redisTemplate.opsForValue().set(key, valueString, timeout);
         }
 
         @Override
-        public <T> void addToSet(String key, T value, Duration timeout,
-            Class<T> type) {
-            if (String.class.equals(type)) {
-                final String casted = (String) value;
-                redisTemplate.opsForSet().add(key, casted);
-                redisTemplate.expire(key, timeout.toMillis(), TimeUnit.MILLISECONDS);
-                return;
-            }
+        public <T> void addToSet(String key, T value, Duration timeout, Class<T> type) {
+            final String valueString = toString(value, type);
+            redisTemplate.opsForSet().add(key, valueString);
+            redisTemplate.expire(key, timeout.toMillis(), TimeUnit.MILLISECONDS);
+        }
 
+        private <T> String toString(final T value, final Class<T> type) {
+            if (String.class.equals(type)) {
+                return (String) value;
+            }
             try {
-                final String json = objectMapper.writeValueAsString(value);
-                redisTemplate.opsForSet().add(key, json);
-                redisTemplate.expire(key, timeout.toMillis(), TimeUnit.MILLISECONDS);
+                return objectMapper.writeValueAsString(value);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e.getMessage(), e);
             }
