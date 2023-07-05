@@ -16,6 +16,7 @@ public interface RedisService {
 
     <T> void save(final String key, final T value, final Duration timeout, final Class<T> type);
     <T> void addToSet(final String key, final T value, final Duration timeout, final Class<T> type);
+    <T> void addToZSet(final String key, final T value, final double score, final Duration timeout, final Class<T> type);
 
     @Service
     @RequiredArgsConstructor
@@ -34,6 +35,14 @@ public interface RedisService {
         public <T> void addToSet(String key, T value, Duration timeout, Class<T> type) {
             final String valueString = toString(value, type);
             redisTemplate.opsForSet().add(key, valueString);
+            redisTemplate.expire(key, timeout.toMillis(), TimeUnit.MILLISECONDS);
+        }
+
+        @Override
+        public <T> void addToZSet(String key, T value, double score,
+            Duration timeout, Class<T> type) {
+            final String valueString = toString(value, type);
+            redisTemplate.opsForZSet().add(key, valueString, score);
             redisTemplate.expire(key, timeout.toMillis(), TimeUnit.MILLISECONDS);
         }
 
