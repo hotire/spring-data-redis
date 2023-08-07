@@ -1,4 +1,4 @@
-package com.github.hotire.spring.data.redis.repository;
+package com.github.hotire.spring.data.redis.core.repository;
 
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 

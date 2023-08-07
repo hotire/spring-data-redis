@@ -1,4 +1,4 @@
-package com.github.hotire.spring.data.redis.repository;
+package com.github.hotire.spring.data.redis.core.repository;
 
 import java.util.List;
 import javax.annotation.PostConstruct;
