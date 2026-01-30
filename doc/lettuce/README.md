@@ -170,3 +170,131 @@ Lettuce 클라이언트
 4. metrics/ (선택)
    - 메트릭 수집
 ~~~
+
+## ConnectionWatchdog
+
+1. TCP 연결 끊김 감지
+   ↓
+2. channelInactive() 이벤트 발생
+   ↓
+3. ConnectionWatchdog.scheduleReconnect() 호출
+   ↓
+4. 지수 백오프로 재연결 시도 (exponential backoff)
+   ↓
+5. 재연결 성공 시:
+    - channelActive() 이벤트 발생
+    - 대기 중인 명령어 재전송
+    - 연결 상태 복원 (SELECT, AUTH 등)
+
+### 실제 동작 시나리오
+
+시나리오 1: 정상 동작 (연결 유지)
+
+~~~
+시간: 0초
+  → StatefulRedisConnection 생성
+  → TCP 연결 성립 (channelActive)
+  → channel.isActive() = true
+
+시간: 10초
+  → 명령어 1 실행 (GET key1)
+  → TCP 연결을 통해 전송
+  → 응답 수신
+
+시간: 20초
+  → 명령어 2 실행 (SET key2 value2)
+  → 같은 TCP 연결을 통해 전송
+  → 응답 수신
+
+시간: 30초
+  → 명령어 3 실행 (DEL key3)
+  → 같은 TCP 연결을 통해 전송
+  → 응답 수신
+
+→ TCP 연결은 계속 유지됨!
+~~~
+
+시나리오 2: 연결 끊김 및 재연결
+
+~~~
+시간: 0초
+  → StatefulRedisConnection 생성
+  → TCP 연결 성립
+
+시간: 10초
+  → 명령어 1 실행 (GET key1)
+  → TCP 연결을 통해 전송
+  → 응답 수신
+
+시간: 15초
+  → 네트워크 장애 발생
+  → TCP 연결 끊김
+  → channelInactive() 이벤트 발생
+
+시간: 15.1초
+  → ConnectionWatchdog이 재연결 시도
+  → 명령어 2 실행 시도 (SET key2 value2)
+  → 연결이 끊어져 있으므로 명령어가 큐에 저장됨
+
+시간: 16초
+  → 재연결 성공
+  → channelActive() 이벤트 발생
+  → 큐에 저장된 명령어 재전송
+  → 연결 상태 복원 (SELECT, AUTH 등)
+
+시간: 16.1초
+  → 명령어 2 실행 완료
+  → 정상 동작 재개
+~~~
+
+시나리오 3: 명령어 전송 중 연결 끊김
+
+~~~
+시간: 0ms
+  → 명령어 전송 시작 (GET key1)
+  → TCP 소켓에 데이터 쓰기 시도
+
+시간: 5ms
+  → 네트워크 장애 발생
+  → TCP 연결 끊김
+  → IOException 발생
+
+시간: 5ms
+  → exceptionCaught() 호출
+  → 명령어에 예외 저장
+  → command.completeExceptionally(cause)
+  → 애플리케이션에 IOException 전달
+~~~
+
+시나리오 4: 명령어 전송 후 응답 대기 중 연결 끊김
+~~~
+시간: 0ms
+  → 명령어 전송 완료 (GET key1)
+  → 명령어가 stack에 저장됨 (응답 대기)
+  → Redis 서버에서 처리 중...
+
+시간: 10ms
+  → 네트워크 장애 발생
+  → TCP 연결 끊김
+  → channelInactive() 호출
+
+시간: 10ms
+  → endpoint.notifyDrainQueuedCommands() 호출
+  → stack에 있는 명령어들을 disconnectedBuffer로 이동
+  → 명령어는 실패하지 않고 버퍼에 저장됨
+
+시간: 15ms
+  → 재연결 성공
+  → channelActive() 호출
+  → 버퍼에 저장된 명령어 재전송
+~~~
+
+###  at-least-once vs at-most-once
+
+at-least-once (기본값, autoReconnect = true)
+~~~
+명령어 전송 완료 → 응답 대기 중 연결 끊김
+  → 명령어를 버퍼에 저장
+  → 재연결 후 자동 재전송
+  → 명령어가 2번 실행될 수 있음 (중복 실행 가능)
+~~~
