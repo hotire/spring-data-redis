@@ -1,6 +1,6 @@
 # EventLoop
 
-![eventLoop](img/eventloop.png)
+![eventLoop](../img/eventloop.png)
 
 이벤트 루프 = 무한 루프 + 이벤트 처리
 - 파일 이벤트: 네트워크 I/O (클라이언트 연결, 데이터 수신/전송)
