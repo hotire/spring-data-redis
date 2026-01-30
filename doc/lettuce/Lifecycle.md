@@ -192,3 +192,4 @@ protected Tuple2<CompletableFuture<Channel>, CompletableFuture<SocketAddress>> r
      → 버퍼된 명령어 재전송
      → 정상 동작 재개
 ~~~
+
